@@ -33,8 +33,23 @@ def emotion_detector(text_to_analyze):
 
         if response.status_code == 200:
             output = response.json()
+            
+            # Extract the emotions and their scores
+            emotions = output['emotionPredictions'][0]['emotion']
+            dominant_emotion = max(emotions, key=emotions.get)
+            
             print("Response content: ", output)
-            return output.get('text', 'No text field in response.')
+            
+            result = {
+                'anger': emotions.get('anger', 0),
+                'disgust': emotions.get('disgust', 0),
+                'fear': emotions.get('fear', 0),
+                'joy': emotions.get('joy', 0),
+                'sadness': emotions.get('sadness', 0),
+                'dominant_emotion': dominant_emotion
+            }
+            
+            return result
         else:
             print(f"Response content: {response.content}")
             return f"Received unexpected status code {response.status_code}: {response.content}"
@@ -55,4 +70,5 @@ except requests.RequestException as e:
     print(f"Unable to access the internet: {e}")
 
 # Optional: You can call the function to test it here
-print(emotion_detector("I love this new technology."))
+result = emotion_detector("I am so happy I am doing this.")
+print(result)
