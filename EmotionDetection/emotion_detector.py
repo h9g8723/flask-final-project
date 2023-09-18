@@ -70,5 +70,7 @@ except requests.RequestException as e:
     print(f"Unable to access the internet: {e}")
 
 # Optional: You can call the function to test it here
-result = emotion_detector("I am so happy I am doing this.")
+# result = emotion_detector("I am so happy I am doing this.")
+# print(result)
+result = emotion_detector("I hate working long hours.")
 print(result)
