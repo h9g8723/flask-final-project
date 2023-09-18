@@ -2,6 +2,21 @@ import requests
 import json
 import time
 
+def emotion_detector(text):
+    result = {
+        "anger": None,
+        "disgust": None,
+        "fear": None,
+        "joy": None,
+        "sadness": None,
+        "dominant_emotion": None,
+        "status_code": 200
+    }
+
+    if not text.strip():
+        result["status_code"] = 400
+        return result
+
 def emotion_detector(text_to_analyze):
     url = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
     headers = {
@@ -72,5 +87,5 @@ except requests.RequestException as e:
 # Optional: You can call the function to test it here
 # result = emotion_detector("I am so happy I am doing this.")
 # print(result)
-result = emotion_detector("I hate working long hours.")
-print(result)
+# result = emotion_detector("I hate working long hours.")
+# print(result)
